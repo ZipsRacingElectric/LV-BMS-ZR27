@@ -1,0 +1,21 @@
+{
+	"version": "0.2.0",
+	"configurations":
+	[
+		{
+			"name": "Cortex Debug",
+			"cwd": "${workspaceRoot}",
+			"executable": "./build/lv_bms_zr27.elf",
+			"request": "launch",
+			"type": "cortex-debug",
+			"servertype": "openocd",
+			"device": "STM32F405RE",
+			"svdFile": "common/stm32f405.svd",
+			"configFiles":
+			[
+				"interface/stlink.cfg",
+				"build/stm32f405.cfg"
+			]
+		}
+	]
+}
