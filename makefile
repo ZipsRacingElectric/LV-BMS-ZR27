@@ -15,12 +15,23 @@ COMMONDIR	:= ./common
 ALLINC += src
 
 # Source files
-CSRC =	$(ALLCSRC)		\
-		src/main.c
+CSRC =	$(ALLCSRC)						\
+		src/main.c						\
+		src/peripherals.c				\
+		src/peripherals/eeprom_map.c	\
+		src/can.c						\
+		src/can/receive.c			
 
 # Common library includes
 include common/src/debug.mk
 include common/src/fault_handler.mk
+
+include common/src/peripherals/adc/analog_linear.mk
+include common/src/peripherals/adc/stm_adc.mk
+include common/src/peripherals/i2c/mc24lc32.mk
+
+include common/src/can/can_thread.mk
+include common/src/can/eeprom_can.mk
 
 # Compiler flags
 USE_OPT += -Og -Wall -Wextra
