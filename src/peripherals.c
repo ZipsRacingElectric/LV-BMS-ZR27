@@ -12,10 +12,11 @@ mc24lc32_t physicalEeprom;
 virtualEeprom_t virtualEeprom;
 
 // Private
+eeprom_t readonlyWriteonlyEeprom;
 
 // Configuration --------------------------------------------------------------------------------------------------------------
 
-/// @brief Configuration of the I2C1 bus
+/// @brief Configuration of the I2C1 bus.
 static const I2CConfig I2C1_CONFIG = 
 {
     .op_mode = OPMODE_I2C,
@@ -23,7 +24,7 @@ static const I2CConfig I2C1_CONFIG =
     .duty_cycle = STD_DUTY_CYCLE
 };
 
-/// @brief Configuration of the on-board EEPROM
+/// @brief Configuration of the on-board EEPROM.
 static const mc24lc32Config_t PHYSICAL_EEPROM_CONFIG =
 {
     .addr = 0x50,
@@ -31,6 +32,25 @@ static const mc24lc32Config_t PHYSICAL_EEPROM_CONFIG =
     .timeout = TIME_MS2I (500),
     .magicString = EEPROM_MAP_STRING,
     .dirtyHook = peripheralsReconfigure
+};
+
+/// @brief Configuration of the LV BMS's virtual EEPROM.
+static const virtualEepromConfig_t VIRTUAL_EEPROM_CONFIG =
+{
+    .count = 2,
+    .entries = 
+    {
+            {
+            .eeprom = (eeprom_t*) &physicalEeprom,
+            .addr = 0x0000,
+            .size = 0x1000
+        },
+            {
+            .eeprom = &readonlyWriteonlyEeprom,
+            .addr = 0x1000,
+            .size = 0x1000
+        }
+    }
 };
 
 bool peripheralsInit ()
@@ -41,6 +61,12 @@ bool peripheralsInit ()
 
     if (!mc24lc32Init(&physicalEeprom, &PHYSICAL_EEPROM_CONFIG) && physicalEeprom.state == MC24LC32_STATE_FAILED)
         return false;
+
+    // Read-only / Write-only EEPROM initialization.
+    eepromInit (&readonlyWriteonlyEeprom, eepromWriteonlyWrite, eepromReadonlyRead);
+
+    // Virtual memory initialization.
+    virtualEepromInit (&virtualEeprom, &VIRTUAL_EEPROM_CONFIG);
 
     // Re-configurable peripherals are not considered fatal.
     peripheralsReconfigure(NULL);
