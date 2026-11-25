@@ -30,10 +30,10 @@ typedef struct
 
 /// @brief Handles a write to the 'write-only' section of the device's virtual EEPROM.
 /// @note Currently is not implemented.
-bool writeonlyWrite (void* eeprom, uint16_t addr, const void* data, uint16_t dataCount);
+bool eepromWriteonlyWrite (void* eeprom, uint16_t addr, const void* data, uint16_t dataCount);
 
 /// @brief Handles a read from the 'read-only' section of the device's virtual EEPROM.
 /// @note Used for reading temporary data.
-bool readonlyRead (void* eeprom, uint16_t addr, const void* data, uint16_t dataCount);
+bool eepromReadonlyRead (void* eeprom, uint16_t addr, void* data, uint16_t dataCount);
 
 #endif // EEPROM_MAP_H
