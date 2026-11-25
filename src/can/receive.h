@@ -1,13 +1,13 @@
 #ifndef RECEIVE_H
 #define RECEIVE_H
 
-// VCU CAN Receive Handler ----------------------------------------------------------------------------------------------------
+// LV BMS CAN Receive Handler ----------------------------------------------------------------------------------------------------
 //
 // Author: Jake Nowak
 // Date Created: 2026.11.17
 //
 // Description: Functions for handling CAN messages that don't belong to a CAN node. These messages are not transmitted
-//   periodically, but are rather used to configure the VCU.
+//   periodically, but are rather used to configure the LV BMS.
 
 // Includes -------------------------------------------------------------------------------------------------------------------
 

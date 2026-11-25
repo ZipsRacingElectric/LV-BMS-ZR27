@@ -13,7 +13,6 @@
 #include "peripherals/i2c/mc24lc32.h"
 #include "peripherals/eeprom_map.h"
 
-#include "peripherals/adc/analog_linear.h"
 #include "peripherals/adc/stm_adc.h"
 
 // Globals --------------------------------------------------------------------------------------------------------------------
@@ -32,8 +31,6 @@ extern mc24lc32_t physicalEeprom;
 
 /// @brief A 'map' of the physical EEPROM's memory. Used for reading data from its cache.
 static eepromMap_t* const physicalEepromMap = (eepromMap_t*) physicalEeprom.cache;
-
-// BQ76200 states for open and closed charge / discharge
 
 // Functions --------------------------------------------------------------------------------------------------------------------
 
